@@ -183,10 +183,6 @@ func (c *QQClient) processGuildEventBody(m *channel.ChannelMsgContent, eventBody
 				c.Error("process guild event flow error: pull eventMsg message error: %v", err)
 				return
 			}
-			// 自己的消息被贴表情会单独推送一个tips, 这里不需要解析
-			if t[0].Head.RoutingHead.GetFromTinyid() == c.GuildService.TinyId {
-				return
-			}
 			updatedEvent := &GuildMessageReactionsUpdatedEvent{
 				GuildId:          m.Head.RoutingHead.GetGuildId(),
 				ChannelId:        m.Head.RoutingHead.GetChannelId(),
