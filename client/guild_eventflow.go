@@ -62,6 +62,14 @@ func decodeGuildEventFlowPacket(c *QQClient, _ *incomingPacketInfo, payload []by
 				if common == nil { // empty tips
 
 				}
+
+				c.dispatchGuildMessageReactionsTipsEvent(&GuildMessageReactionsTipsEvent{
+					TinyId:    m.Head.RoutingHead.GetFromTinyid(),
+					GuildId:   m.Head.RoutingHead.GetGuildId(),
+					ChannelId: m.Head.RoutingHead.GetChannelId(),
+					MessageId: 0,
+				})
+
 				tipsInfo := &tipsPushInfo{
 					TinyId:    m.Head.RoutingHead.GetFromTinyid(),
 					GuildId:   m.Head.RoutingHead.GetGuildId(),

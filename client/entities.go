@@ -230,6 +230,14 @@ type (
 		CurrentReactions []*message.GuildMessageEmojiReaction
 	}
 
+	GuildMessageReactionsTipsEvent struct {
+		TinyId                 uint64
+		TargetMessageSenderUin int64
+		GuildId                uint64
+		ChannelId              uint64
+		MessageId              int32
+	}
+
 	GuildChannelUpdatedEvent struct {
 		OperatorId     uint64
 		GuildId        uint64
