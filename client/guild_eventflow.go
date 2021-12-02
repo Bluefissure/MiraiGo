@@ -59,16 +59,27 @@ func decodeGuildEventFlowPacket(c *QQClient, _ *incomingPacketInfo, payload []by
 				}
 			}
 			if m.Head.ContentHead.GetSubType() == 2 { // todo: tips?
+				tips := new(msg.Tips)
 				if common == nil { // empty tips
 
+				} else {
+					tipsEvent := &GuildMessageReactionsTipsEvent{
+						TinyId:    m.Head.RoutingHead.GetFromTinyid(),
+						GuildId:   m.Head.RoutingHead.GetGuildId(),
+						ChannelId: m.Head.RoutingHead.GetChannelId(),
+					}
+					if err := proto.Unmarshal(common.PbElem, tips); err != nil {
+						return nil, errors.Wrap(err, "failed to unmarshal tips message")
+					}
+					for _, kv := range tips.Content.KVPairs {
+						if kv.GetKey() == "msgno" {
+							tipsEvent.MessageNo = kv.GetValue()
+						} else if kv.GetKey() == "emoji_id" {
+							tipsEvent.EmojiId = kv.GetValue()
+						}
+					}
+					c.dispatchGuildMessageReactionsTipsEvent(tipsEvent)
 				}
-
-				c.dispatchGuildMessageReactionsTipsEvent(&GuildMessageReactionsTipsEvent{
-					TinyId:    m.Head.RoutingHead.GetFromTinyid(),
-					GuildId:   m.Head.RoutingHead.GetGuildId(),
-					ChannelId: m.Head.RoutingHead.GetChannelId(),
-					MessageId: 0,
-				})
 
 				tipsInfo := &tipsPushInfo{
 					TinyId:    m.Head.RoutingHead.GetFromTinyid(),

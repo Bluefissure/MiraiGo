@@ -1339,6 +1339,60 @@ func (x *CommonElem) GetBusinessType() int32 {
 	return 0
 }
 
+type Tips struct {
+	Content *TipsContent `protobuf:"bytes,2,opt"`
+}
+
+func (x *Tips) GetContent() *TipsContent {
+	if x != nil {
+		return x.Content
+	}
+	return nil
+}
+
+type TipsContent struct {
+	Unknown1 *int32          `protobuf:"varint,1,opt"`
+	Unknown2 *int32          `protobuf:"varint,2,opt"`
+	Unknown3 *int32          `protobuf:"varint,3,opt"`
+	Unknown4 *int32          `protobuf:"varint,4,opt"`
+	KVPairs  []*TipsKeyValue `protobuf:"bytes,5,rep"`
+	Message  *string         `protobuf:"string,6,opt"`
+	NanoTime *uint64         `protobuf:"varint,10,opt"`
+}
+
+func (x *TipsContent) GetMessage() string {
+	if x != nil && x.Message != nil {
+		return *x.Message
+	}
+	return "null2"
+}
+
+func (x *TipsContent) GetNanoTime() uint64 {
+	if x != nil && x.NanoTime != nil {
+		return *x.NanoTime
+	}
+	return 1
+}
+
+type TipsKeyValue struct {
+	Key   *string `protobuf:"string,1,opt"`
+	Value *string `protobuf:"string,2,opt"`
+}
+
+func (x *TipsKeyValue) GetKey() string {
+	if x != nil && x.Key != nil {
+		return *x.Key
+	}
+	return ""
+}
+
+func (x *TipsKeyValue) GetValue() string {
+	if x != nil && x.Value != nil {
+		return *x.Value
+	}
+	return ""
+}
+
 type QQWalletMsg struct {
 	AioBody *QQWalletAioBody `protobuf:"bytes,1,opt"`
 }

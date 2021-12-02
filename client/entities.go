@@ -235,7 +235,8 @@ type (
 		TargetMessageSenderUin int64
 		GuildId                uint64
 		ChannelId              uint64
-		MessageId              int32
+		EmojiId                string
+		MessageNo              string
 	}
 
 	GuildChannelUpdatedEvent struct {
