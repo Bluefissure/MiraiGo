@@ -75,9 +75,9 @@ func decodeGuildEventFlowPacket(c *QQClient, _ *incomingPacketInfo, payload []by
 					GuildId:   m.Head.RoutingHead.GetGuildId(),
 					ChannelId: m.Head.RoutingHead.GetChannelId(),
 				}
-				if len(m.CtrlHead.IncludeUin) > 0 {
-					tipsInfo.TargetMessageSenderUin = int64(m.CtrlHead.IncludeUin[0])
-				}
+				// if len(m.CtrlHead.IncludeUin) > 0 {
+				// 	tipsInfo.TargetMessageSenderUin = int64(m.CtrlHead.IncludeUin[0])
+				// }
 				return tipsInfo, nil
 			}
 			if common == nil || common.GetServiceType() != 500 {
